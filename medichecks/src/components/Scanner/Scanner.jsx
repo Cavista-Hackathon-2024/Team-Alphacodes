@@ -15,6 +15,18 @@ export default function Scanner() {
     form.append('srcImg',imageFile );
     form.append('Session', 'string');
 
+    const options = {
+      method: 'POST',
+      url: 'https://pen-to-print-handwriting-ocr.p.rapidapi.com/recognize/',
+      headers: {
+        'content-type': 'multipart/form-data',
+        'X-RapidAPI-Key': '95e10d7391mshc3a52e2b1574345p10bc13jsn15f2cae9d0d4',
+        'X-RapidAPI-Host': 'pen-to-print-handwriting-ocr.p.rapidapi.com',
+      },
+      data: form, 
+    };
+
+   
    
   }
   return (
