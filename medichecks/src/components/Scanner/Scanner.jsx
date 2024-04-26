@@ -9,6 +9,14 @@ export default function Scanner() {
     setImageFile(event.target.files[0]);
     setPreviewImage(URL.createObjectURL(event.target.files[0]));
   }
+  async function handleSubmit(event) {
+    event.preventDefault(); 
+    const form = new FormData();
+    form.append('srcImg',imageFile );
+    form.append('Session', 'string');
+
+   
+  }
   return (
  
     <section className="take-picture">
