@@ -19,6 +19,33 @@ export default function InputForm() {
     console.log(value);
   }
 
+  const getDrugData = async () => {
+    try {
+        const response = await fetch(`https://api.fda.gov/drug/drugsfda.json?search=${searchTerm}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        const productData =  data.results[0].products[0]
+
+        const drugInfo = {
+            productNumber: productData.product_number,
+            reference_drug: productData.reference_drug,
+            brand_name: productData.brand_name,
+            active_ingredients: productData.active_ingredients,
+            reference_standard: productData.reference_standard,
+            dosage_form: productData.dosage_form,
+            marketing_status: productData.marketing_status
+        }
+
+        console.log(drugInfo)
+        
+        return data;
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+  }
+
   return (
     <>
       <Scanner imagePath={file} />
@@ -47,6 +74,7 @@ export default function InputForm() {
             src={searchIcon}
             alt="enter-search"
             className="submit-icon search-btn"
+            onClick={getDrugData}
           />
         </label>
       </form>
