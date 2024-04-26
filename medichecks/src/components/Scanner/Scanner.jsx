@@ -1,8 +1,7 @@
 import axios from 'axios'
 import{ useState } from "react";
 
-<<<<<<< HEAD
-export default function Scanner() {
+export default function Scanner({imagePath}) {
   const [previewImage, setPreviewImage] = useState("");
   const [imageFile, setImageFile] = useState({});
   const [text, setText] = useState("");
@@ -36,13 +35,8 @@ export default function Scanner() {
 
   }
   return (
-    <div>placeholder</div>
-=======
-export default function Scanner({imagePath}) {
-  return (
-    <section className="take-picture">
-        <img className="img-display" src={imagePath} alt="your image" />
+    <section className='take-picture'>
+      <img className='img-display' src={imagePath} alt='Your image'/>
     </section>
->>>>>>> de7b359cf1e515afc7d7612102dac16f048c96cc
   )
 }
