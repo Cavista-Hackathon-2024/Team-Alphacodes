@@ -1,6 +1,7 @@
 import "./App.css";
 import InputForm from "./components/InputForm/InputForm";
 import medbotlogo from "./assets/medbotlogo.png";
+import ResultDisplay from "./components/ResultDisplay/ResultDisplay";
 
 
 function App() {
@@ -10,9 +11,8 @@ function App() {
         <img src={medbotlogo} alt="medcheck logo" />
         <h1>Welcome to Medichecks</h1>
       </header>
-
       <InputForm />
-      
+      <ResultDisplay />
     </div>
   );
 }

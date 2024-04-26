@@ -13,6 +13,12 @@ export default function InputForm() {
     console.log(selectedFile);
   };
 
+  const handleInputChange = (event) => {
+    const value = event.target.value
+    setSearchTerm(value)
+    console.log(value);
+  }
+
   return (
     <>
       <Scanner imagePath={file} />
@@ -35,6 +41,7 @@ export default function InputForm() {
             type="text"
             name="search-term"
             placeholder="Search a drug"
+            onChange={handleInputChange}
           />
           <img
             src={searchIcon}
