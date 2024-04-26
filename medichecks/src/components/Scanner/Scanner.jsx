@@ -1,8 +1,8 @@
 
-export default function Scanner() {
+export default function Scanner({imagePath}) {
   return (
     <section className="take-picture">
-        <button className="scan-btn">scan image</button>
+        <img className="img-display" src={imagePath} alt="your image" />
     </section>
   )
 }
