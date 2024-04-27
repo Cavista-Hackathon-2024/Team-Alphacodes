@@ -5,13 +5,16 @@ import axios from "axios";
 
 export default function InputForm() {
   const [file, setFile] = useState(null);
+  const [imgDisplayPath, setImgDisplayPath] = useState()
   const [searchTerm, setSearchTerm] = useState();
   const [text, setText] = useState("");
 
   
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0]
+    const selectedFile = event.target.files[0];
+    const imageDisplayPath = URL.createObjectURL(selectedFile);
     setFile(selectedFile);
+    setImgDisplayPath(imageDisplayPath)
   };
 
   const handleInputChange = (event) => {
@@ -75,7 +78,7 @@ export default function InputForm() {
     }}
   return (
     <>
-      <Scanner imagePath={file} />
+      <Scanner imagePath={imgDisplayPath} />
       <form onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="custom-file-upload">
           {file ? "Uploaded!" : "Upload your image here"}
