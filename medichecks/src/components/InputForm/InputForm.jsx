@@ -8,9 +8,6 @@ export default function InputForm() {
   const [searchTerm, setSearchTerm] = useState();
   const [text, setText] = useState("");
 
-  useEffect(() => {
-    console.log("File state updated:", file);
-  }, [file]);
   
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0]
