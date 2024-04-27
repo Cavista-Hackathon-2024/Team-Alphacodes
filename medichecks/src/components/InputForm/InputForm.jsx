@@ -14,7 +14,7 @@ export default function InputForm() {
   }, [file]);
   
   const handleFileChange = (event) => {
-    const selectedFile = URL.createObjectURL(event.target.files[0]);
+    const selectedFile = event.target.files[0]
     setFile(selectedFile);
   };
 
@@ -52,13 +52,12 @@ export default function InputForm() {
   }
 
   async function handleSubmit(event) {
-    event.preventDefault(); 
-    console.log('The sumit was activated')
+    event.preventDefault();
+    //const headers = data.getHeaders ? data.getHeaders() : { 'Content-Type': 'multipart/form-data' };
     const data = new FormData();
     data.append('srcImg', file);
+    console.log("this is the sec file", file);
     data.append('Session', 'string');
-
-    const headers = data.getHeaders ? data.getHeaders() : { 'Content-Type': 'multipart/form-data' };
 
     const options = {
       method: 'POST',
@@ -66,7 +65,6 @@ export default function InputForm() {
       headers: {
         'X-RapidAPI-Key': '95e10d7391mshc3a52e2b1574345p10bc13jsn15f2cae9d0d4',
         'X-RapidAPI-Host': 'pen-to-print-handwriting-ocr.p.rapidapi.com',
-        ...headers
       },
       data: data
     };
