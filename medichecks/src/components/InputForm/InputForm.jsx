@@ -8,9 +8,8 @@ export default function InputForm({ getDrugData, getAiResponse}) {
   const [searchTerm, setSearchTerm] = useState();
 
   const handleFileChange = (event) => {
-    const selectedFile = URL.createObjectURL(event.target.files[0]);
+    const selectedFile = event.target.files[0]
     setFile(selectedFile);
-    console.log(selectedFile);
   };
 
   const handleInputChange = (event) => {
@@ -22,6 +21,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
   return (
     <>
       <Scanner imagePath={file} />
+      <p className="extracted-text"></p>
       <form encType="multipart/form-data" method="post">
         <label htmlFor="file-upload" className="custom-file-upload">
           {file ? "Uploaded!" : "Upload your image here"}
@@ -33,7 +33,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
             onChange={handleFileChange}
           />
         </label>
-          <button className="extract-text">extract text</button>
+          <button className="extract-text" >extract text</button>
           
         <label htmlFor="search-input" className="custom-file-upload">
           <input

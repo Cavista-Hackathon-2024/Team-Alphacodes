@@ -1,13 +1,25 @@
 import medbotlogo from "../../assets/medbotlogo.png";
 import "./resultdisplay.css";
 
-export default function ResultDisplay({ result }) {
+export default function ResultDisplay({ result, drugInformation, isLoading }) {
+  const dataObject = drugInformation;
+  
+  const DisplayResult = () => {
+    return (
+      <div>
+        <div dangerouslySetInnerHTML={{ __html: result }}></div>
+      </div>
+    );
+  };
+
   return (
     <section className="result-display">
       <img src={medbotlogo} alt="medchecks logo" />
-      <p className="result-content">
-        {result}
-      </p>
+      <div className="result-content">
+        <div>
+          {DisplayResult()}
+        </div>
+      </div>
     </section>
   );
 }

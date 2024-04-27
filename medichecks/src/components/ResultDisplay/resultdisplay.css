@@ -1,7 +1,7 @@
 
 .result-display{
     border: 1px solid black;
-    max-width: 60%;
+    width: 60%;
     min-height: 200px;
     border-radius: 30px;
     padding: 15px 20px;
@@ -14,6 +14,6 @@
 }
 
 .result-content{
-    font-size: 18px;
+    font-size: 22px;
 }
 
