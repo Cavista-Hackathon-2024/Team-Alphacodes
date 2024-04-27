@@ -1,11 +1,11 @@
 
 .result-display{
     border: 1px solid black;
-    max-width: 70%;
+    max-width: 60%;
     min-height: 200px;
     border-radius: 30px;
     padding: 15px 20px;
-    margin-bottom: 30px;
+    margin: 0px 40px 30px;
 }
 
 .result-display > img {
