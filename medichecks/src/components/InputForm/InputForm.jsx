@@ -72,6 +72,8 @@ export default function InputForm() {
     try {
       const response = await axios.request(options);
       console.log(response.data);
+      setText(response.data.value);
+      console.log('it text', text); 
     } catch (error) {
       console.error(error);
     }}
