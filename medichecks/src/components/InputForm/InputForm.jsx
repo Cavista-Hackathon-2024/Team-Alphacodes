@@ -1,7 +1,7 @@
 import submitIcon from "../../assets/uploadimage.png";
 import searchIcon from "../../assets/searchIcon.png";
 import Scanner from "../Scanner/Scanner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function InputForm() {
@@ -9,11 +9,13 @@ export default function InputForm() {
   const [searchTerm, setSearchTerm] = useState();
   const [text, setText] = useState("");
 
-
+  useEffect(() => {
+    console.log("File state updated:", file);
+  }, [file]);
+  
   const handleFileChange = (event) => {
     const selectedFile = URL.createObjectURL(event.target.files[0]);
     setFile(selectedFile);
-    console.log(selectedFile);
   };
 
   const handleInputChange = (event) => {
