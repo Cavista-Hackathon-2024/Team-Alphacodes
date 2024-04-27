@@ -56,13 +56,15 @@ export default function InputForm() {
     data.append('srcImg', file);
     data.append('Session', 'string');
 
+    const headers = data.getHeaders ? data.getHeaders() : { 'Content-Type': 'multipart/form-data' };
+
     const options = {
       method: 'POST',
       url: 'https://pen-to-print-handwriting-ocr.p.rapidapi.com/recognize/',
       headers: {
         'X-RapidAPI-Key': '95e10d7391mshc3a52e2b1574345p10bc13jsn15f2cae9d0d4',
         'X-RapidAPI-Host': 'pen-to-print-handwriting-ocr.p.rapidapi.com',
-        ...data.getHeaders(),
+        ...headers
       },
       data: data
     };
