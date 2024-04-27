@@ -28,6 +28,7 @@ export default function Scanner({imagePath}) {
 
     try {
       const response = await axios.request(options);
+      setText(response.data.value);
       console.log(response.data);
     } catch (error) {
       console.error(error);

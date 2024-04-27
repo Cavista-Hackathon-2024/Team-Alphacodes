@@ -2,10 +2,13 @@ import submitIcon from "../../assets/uploadimage.png";
 import searchIcon from "../../assets/searchIcon.png";
 import Scanner from "../Scanner/Scanner";
 import { useState } from "react";
+import axios from "axios";
 
 export default function InputForm() {
   const [file, setFile] = useState(null);
   const [searchTerm, setSearchTerm] = useState();
+  const [text, setText] = useState("");
+
 
   const handleFileChange = (event) => {
     const selectedFile = URL.createObjectURL(event.target.files[0]);
@@ -46,10 +49,34 @@ export default function InputForm() {
     }
   }
 
+  async function handleSubmit(event) {
+    event.preventDefault(); 
+    console.log('The sumit was activated')
+    const data = new FormData();
+    data.append('srcImg', file);
+    data.append('Session', 'string');
+
+    const options = {
+      method: 'POST',
+      url: 'https://pen-to-print-handwriting-ocr.p.rapidapi.com/recognize/',
+      headers: {
+        'X-RapidAPI-Key': '95e10d7391mshc3a52e2b1574345p10bc13jsn15f2cae9d0d4',
+        'X-RapidAPI-Host': 'pen-to-print-handwriting-ocr.p.rapidapi.com',
+        ...data.getHeaders(),
+      },
+      data: data
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }}
   return (
     <>
       <Scanner imagePath={file} />
-      <form encType="multipart/form-data" method="post">
+      <form onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="custom-file-upload">
           {file ? "Uploaded!" : "Upload your image here"}
           <input
@@ -60,7 +87,7 @@ export default function InputForm() {
             onChange={handleFileChange}
           />
         </label>
-          <button className="extract-text">extract text</button>
+          <button type="submit" className="extract-text">Extract Text</button>
           
         <label htmlFor="search-input" className="custom-file-upload">
           <input
