@@ -3,7 +3,7 @@ import Scanner from "../Scanner/Scanner";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function InputForm() {
+export default function InputForm({ getDrugData, getAiResponse}) {
   const [file, setFile] = useState(null);
   const [imgDisplayPath, setImgDisplayPath] = useState()
   const [searchTerm, setSearchTerm] = useState();
@@ -23,32 +23,6 @@ export default function InputForm() {
     console.log(value);
   }
 
-  const getDrugData = async () => {
-    try {
-        const response = await fetch(`https://api.fda.gov/drug/drugsfda.json?search=${searchTerm}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        const productData =  data.results[0].products[0]
-
-        const drugInfo = {
-            productNumber: productData.product_number,
-            reference_drug: productData.reference_drug,
-            brand_name: productData.brand_name,
-            active_ingredients: productData.active_ingredients,
-            reference_standard: productData.reference_standard,
-            dosage_form: productData.dosage_form,
-            marketing_status: productData.marketing_status
-        }
-
-        console.log(drugInfo)
-        
-        return data;
-    } catch (error) {
-        console.error('Error:', error.message);
-    }
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -76,9 +50,18 @@ export default function InputForm() {
     } catch (error) {
       console.error(error);
     }}
+
+    const searchExtractedText = async () => {
+      if(text){
+        await getAiResponse(text)
+        console.log("it got here")
+      }
+    }
+
   return (
     <>
       <Scanner imagePath={imgDisplayPath} />
+      <p> The text by ocr is {text}</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="custom-file-upload">
           {file ? "Uploaded!" : "Upload your image here"}
@@ -90,7 +73,7 @@ export default function InputForm() {
             onChange={handleFileChange}
           />
         </label>
-          <button type="submit" className="extract-text">Extract Text</button>
+          <button type="submit" className="extract-text" onClick={searchExtractedText}>Extract Text</button>
           
         <label htmlFor="search-input" className="custom-file-upload">
           <input

@@ -10,6 +10,10 @@ const genAI = new GoogleGenerativeAI(APIKEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
 
+export function predictName() {
+    
+}
+
 export default async function RunAiQuery(druginfo, drug) {
     const prompt = `Write a detailed explanation on this drug ${drug}, by extracting and using the information in this json file ${druginfo} remove the json syntax in the response. Respond with no text formatting and remove all * characters`
   
