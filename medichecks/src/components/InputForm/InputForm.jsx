@@ -1,4 +1,3 @@
-import submitIcon from "../../assets/uploadimage.png";
 import searchIcon from "../../assets/searchIcon.png";
 import Scanner from "../Scanner/Scanner";
 import { useState, useEffect } from "react";
@@ -101,7 +100,14 @@ export default function InputForm() {
             src={searchIcon}
             alt="enter-search"
             className="submit-icon search-btn"
-            onClick={getDrugData}
+            onClick={async () => {
+                try{
+                    await getDrugData(searchTerm)
+                    await getAiResponse(searchTerm)
+                }catch(error){
+                    console.error("Error:", error)
+                }
+            }}
           />
         </label>
       </form>
