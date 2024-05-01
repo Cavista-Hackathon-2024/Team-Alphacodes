@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [response, setResponse] = useState("");
   const [AiJsonInfo, setAiJsonInfo] = useState("")
+  const [errMsg, setErrMsg] = useState("")
 
 
   const getDrugData = async (drug) => {
@@ -35,6 +36,7 @@ function App() {
 
     } catch (error) {
       console.error("Error:", error.message);
+      setErrMsg(error.message)
     }
   };
 
@@ -51,7 +53,7 @@ function App() {
     if (AiResponse) {
       setResponse(AiResponse);
     } else {
-      setResponse("Explanation not found");
+      setResponse("An error has occured, please try again");
     }
   };
 
@@ -65,8 +67,8 @@ function App() {
         <img src={medbotlogo} alt="medcheck logo" />
         <h1>Welcome to Medichecks</h1>
       </header>
-      <InputForm getDrugData={getDrugData} getAiResponse = {callAiFunction}/>
-      <ResultDisplay result={finalResult} />
+      <InputForm getDrugData={getDrugData} getAiResponse = {callAiFunction} />
+      <ResultDisplay result={finalResult} drugInformation={AiJsonInfo} />
     </div>
   );
 }

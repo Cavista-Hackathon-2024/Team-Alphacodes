@@ -15,7 +15,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
   
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    const imageDisplayPath = URL.createObjectURL(selectedFile);
+    const imageDisplayPath = URL.createObjectURL(event.target.files[0]);
     setFile(selectedFile);
     setImgDisplayPath(imageDisplayPath)
   };
@@ -63,7 +63,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
 
   return (
     <>
-      <Scanner imagePath={imgDisplayPath} />
+      <Scanner imagePath={imageDisplayPath} />
       <p> The text by ocr is {text}</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="custom-file-upload">
