@@ -9,6 +9,9 @@ export default function InputForm({ getDrugData, getAiResponse}) {
   const [searchTerm, setSearchTerm] = useState();
   const [text, setText] = useState("");
 
+  useEffect(() => {
+    console.log("File state updated:", file);
+  }, [file]);
   
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -98,6 +101,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
           />
         </label>
       </form>
+      <div>The drug you are looking for {text}</div>
     </>
   );
 }
