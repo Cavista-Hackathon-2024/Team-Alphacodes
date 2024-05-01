@@ -101,7 +101,6 @@ export default function InputForm({ getDrugData, getAiResponse}) {
           />
         </label>
       </form>
-      <div>The drug you are looking for {text}</div>
     </>
   );
 }
