@@ -1,15 +1,23 @@
 import searchIcon from "../../assets/searchIcon.png";
 import Scanner from "../Scanner/Scanner";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function InputForm({ getDrugData, getAiResponse}) {
   const [file, setFile] = useState(null);
+  const [imgDisplayPath, setImgDisplayPath] = useState()
   const [searchTerm, setSearchTerm] = useState();
+  const [text, setText] = useState("");
 
+  useEffect(() => {
+    console.log("File state updated:", file);
+  }, [file]);
+  
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0]
+    const selectedFile = event.target.files[0];
+    const imageDisplayPath = URL.createObjectURL(event.target.files[0]);
     setFile(selectedFile);
+    setImgDisplayPath(imageDisplayPath)
   };
 
   const handleInputChange = (event) => {
@@ -18,11 +26,46 @@ export default function InputForm({ getDrugData, getAiResponse}) {
     console.log(value);
   }
 
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    //const headers = data.getHeaders ? data.getHeaders() : { 'Content-Type': 'multipart/form-data' };
+    const data = new FormData();
+    data.append('srcImg', file);
+    console.log("this is the sec file", file);
+    data.append('Session', 'string');
+
+    const options = {
+      method: 'POST',
+      url: 'https://pen-to-print-handwriting-ocr.p.rapidapi.com/recognize/',
+      headers: {
+        'X-RapidAPI-Key': '95e10d7391mshc3a52e2b1574345p10bc13jsn15f2cae9d0d4',
+        'X-RapidAPI-Host': 'pen-to-print-handwriting-ocr.p.rapidapi.com',
+      },
+      data: data
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data);
+      setText(response.data.value);
+      console.log('it text', text); 
+    } catch (error) {
+      console.error(error);
+    }}
+
+    const searchExtractedText = async () => {
+      if(text){
+        await getAiResponse(text)
+        console.log("it got here")
+      }
+    }
+
   return (
     <>
-      <Scanner imagePath={file} />
-      <p className="extracted-text"></p>
-      <form encType="multipart/form-data" method="post">
+      <Scanner imagePath={imageDisplayPath} />
+      <p> The text by ocr is {text}</p>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="custom-file-upload">
           {file ? "Uploaded!" : "Upload your image here"}
           <input
@@ -33,7 +76,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
             onChange={handleFileChange}
           />
         </label>
-          <button className="extract-text" >extract text</button>
+          <button type="submit" className="extract-text" onClick={searchExtractedText}>Extract Text</button>
           
         <label htmlFor="search-input" className="custom-file-upload">
           <input
@@ -58,6 +101,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
           />
         </label>
       </form>
+      <div>The drug you are looking for {text}</div>
     </>
   );
 }

@@ -10,6 +10,10 @@ const genAI = new GoogleGenerativeAI(APIKEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
 
+export function predictName() {
+    
+}
+
 export default async function RunAiQuery(druginfo, drug) {
     const prompt = `Write a description on this drug ${drug} using this information ${druginfo} `
     const result = await model.generateContent(prompt);
