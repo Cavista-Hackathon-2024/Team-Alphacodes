@@ -63,7 +63,7 @@ export default function InputForm({ getDrugData, getAiResponse}) {
 
   return (
     <>
-      <Scanner imagePath={imageDisplayPath} />
+      <Scanner imagePath={imgDisplayPath} />
       <p> The text by ocr is {text}</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="custom-file-upload">
